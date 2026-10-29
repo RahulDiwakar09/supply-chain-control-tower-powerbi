@@ -1,0 +1,38 @@
+-- Supply Chain Control Tower: DAX Measures
+
+Total Orders = COUNTROWS(Inventory_SupplyChain_Dataset)
+
+Total Units Sold = SUM(Inventory_SupplyChain_Dataset[Units Sold])
+
+Total COGS = SUM(Inventory_SupplyChain_Dataset[Cost of Goods Sold (COGS)])
+
+Total Transportation Cost = SUM(Inventory_SupplyChain_Dataset[Transportation Cost])
+
+Average Lead Time = AVERAGE(Inventory_SupplyChain_Dataset[Lead Time (Days)])
+
+Backordered Records =
+CALCULATE(COUNTROWS(Inventory_SupplyChain_Dataset), Inventory_SupplyChain_Dataset[Backorder] = TRUE())
+
+Backorder Rate % = DIVIDE([Backordered Records], [Total Orders])
+
+Accurate Orders =
+CALCULATE(COUNTROWS(Inventory_SupplyChain_Dataset), Inventory_SupplyChain_Dataset[Order Accuracy] = TRUE())
+
+Order Accuracy % = DIVIDE([Accurate Orders], [Total Orders])
+
+Transport Cost per Unit = DIVIDE([Total Transportation Cost], [Total Units Sold])
+
+Avg Inventory Level = AVERAGE(Inventory_SupplyChain_Dataset[Inventory Level])
+
+Inventory Turnover =
+DIVIDE([Total COGS], SUM(Inventory_SupplyChain_Dataset[Average Inventory]))
+
+Capacity Utilization % =
+DIVIDE(
+    SUM(Inventory_SupplyChain_Dataset[Inventory Level]),
+    SUM(Inventory_SupplyChain_Dataset[Warehouse Capacity])
+)
+
+Units Sold YoY % =
+VAR LY = CALCULATE([Total Units Sold], SAMEPERIODLASTYEAR(DateTable[Date]))
+RETURN DIVIDE([Total Units Sold] - LY, LY)
