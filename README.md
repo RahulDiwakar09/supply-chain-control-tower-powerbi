@@ -25,7 +25,7 @@
 
 ## 📂 Repository Contents
 - `supply_chain_control_tower.pbix`: the Power BI report
-- `Inventory_SupplyChain_Dataset.xlsx`: the dataset (replace this with your source, e.g. "synthetic")
+- `Inventory_SupplyChain_Dataset.xlsx`: the dataset
 - `supply_chain_measures.dax.txt`: all DAX measures used in the report
 
 ## 🚀 How to Open
